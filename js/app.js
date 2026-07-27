@@ -74,6 +74,7 @@
     listToggle.addEventListener("click", () => {
       state.listOpen = !state.listOpen;
       listToggle.setAttribute("aria-pressed", String(state.listOpen));
+      listToggle.setAttribute("aria-label", state.listOpen ? "Show map view" : "Show list view");
       listView.classList.toggle("open", state.listOpen);
       mapEl.classList.toggle("hidden-under-list", state.listOpen);
       if (state.listOpen) hidePopover();

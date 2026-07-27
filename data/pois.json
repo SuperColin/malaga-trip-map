@@ -13,8 +13,8 @@
     "rating": 4.5,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Isolina+Restaurante+Calle+San+Juan+42+Malaga",
     "tripAdvisorUrl": "https://www.tripadvisor.com/Restaurant_Review-g187438-d27440844-Reviews-Isolina-Malaga_Costa_del_Sol_Province_of_Malaga_Andalucia.html",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Ronda_Tapas.jpg",
-    "imageCredit": "Ben Coombs, Wikimedia Commons (CC BY-SA 2.0)"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Croquetas%3B_tapa_%28Espa%C3%B1a%29.jpg",
+    "imageCredit": "Juan Emilio Prades Bel, Wikimedia Commons (CC BY-SA 4.0)"
   },
   {
     "id": "casa-lola",
@@ -30,8 +30,8 @@
     "rating": 4.1,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Casa+Lola+Calle+San+Jose+6+Malaga",
     "tripAdvisorUrl": "https://www.tripadvisor.com/Restaurant_Review-g187438-d3512037-Reviews-Casa_Lola-Malaga_Costa_del_Sol_Province_of_Malaga_Andalucia.html",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Ronda_Tapas.jpg",
-    "imageCredit": "Ben Coombs, Wikimedia Commons (CC BY-SA 2.0)"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/48/Jam%C3%B3n_ib%C3%A9rico_tapa.jpg",
+    "imageCredit": "Elena.laps, Wikimedia Commons (CC BY-SA 4.0)"
   },
   {
     "id": "calle-strachan",
@@ -71,8 +71,8 @@
     "id": "mercado-de-atarazanas",
     "name": "Mercado de Atarazanas",
     "category": "market",
-    "lat": 36.7180370,
-    "lng": -4.4245400,
+    "lat": 36.718037,
+    "lng": -4.42454,
     "address": "Calle Atarazanas, 10, 29005 Málaga",
     "shortDescription": "Málaga's iconic covered market, famous for its huge stained-glass gate and fresh-food stalls.",
     "fullDescription": "Built in 1879 around a surviving 14th-century Nasrid horseshoe archway, Mercado de Atarazanas is Málaga's central food market — three long naves of fish, meat and produce stalls beneath a spectacular 108-panel stained-glass window depicting the city's history. It's also full of small tapas bars where you can eat standing at the counter among the produce.",
@@ -123,7 +123,7 @@
     "name": "La Tranca",
     "category": "bar",
     "lat": 36.7241766,
-    "lng": -4.4211550,
+    "lng": -4.421155,
     "address": "Calle Carretería, 92, 29008 Málaga",
     "shortDescription": "Wild, music-filled tasca decorated with vinyl covers, known for singing crowds and vermouth.",
     "fullDescription": "La Tranca is a raucous, much-loved old-town tavern where flamenco, copla and Spanish classics play loud enough for everyone to sing along, surrounded by vintage record covers and bullfighting posters. The tapas — croquetas, solomillo, flamenquín — are solid, but the real draw is the electric, shoulder-to-shoulder party atmosphere, with your tab kept in chalk on the table.",
@@ -132,8 +132,8 @@
     "rating": 4.7,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=La+Tranca+Calle+Carreteria+92+Malaga",
     "tripAdvisorUrl": "https://www.tripadvisor.com/Restaurant_Review-g187438-d3462149-Reviews-La_Tranca-Malaga_Costa_del_Sol_Province_of_Malaga_Andalucia.html",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Interior_bodega_M%C3%A1laga.jpg",
-    "imageCredit": "Feranza, Wikimedia Commons (CC BY-SA 4.0)"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/30/Bar_el_Sitio_%2815831154203%29.jpg",
+    "imageCredit": "Jusotil_1943, Wikimedia Commons (CC0)"
   },
   {
     "id": "banos-del-carmen",
@@ -156,7 +156,7 @@
     "id": "muelle-uno",
     "name": "Muelle Uno (Pier One)",
     "category": "walk",
-    "lat": 36.7159930,
+    "lat": 36.715993,
     "lng": -4.4138038,
     "address": "Paseo Matías Prats, 29016 Málaga",
     "shortDescription": "Modern marina promenade with shops, restaurants and yachts, next to the Palmeral park.",
@@ -183,8 +183,8 @@
     "rating": null,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Restaurante+Gutierrez+Puerto+Malaga",
     "tripAdvisorUrl": null,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f7/02_Grilled_fish_and_seafood_dinner_in_Canary_Islands_-_Gran_Canaria_restaurant%2C_marisco_mixto_a_la_parrilla.jpg",
-    "imageCredit": "Marek Ślusarczyk, Wikimedia Commons (CC BY 3.0)"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Gran_surtido_en_marisco_-_Bar_tradicional.jpg",
+    "imageCredit": "Francesc Fort, Wikimedia Commons (CC BY-SA 4.0)"
   },
   {
     "id": "restaurante-godoy",
@@ -200,8 +200,8 @@
     "rating": null,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Marisqueria+Godoy+Muelle+Uno+Malaga",
     "tripAdvisorUrl": "https://www.tripadvisor.com/Restaurant_Review-g187438-d3371918-Reviews-Marisqueria_Godoy-Malaga_Costa_del_Sol_Province_of_Malaga_Andalucia.html",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f7/02_Grilled_fish_and_seafood_dinner_in_Canary_Islands_-_Gran_Canaria_restaurant%2C_marisco_mixto_a_la_parrilla.jpg",
-    "imageCredit": "Marek Ślusarczyk, Wikimedia Commons (CC BY 3.0)"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/81/Parrillada_de_Pescado.jpg",
+    "imageCredit": "Gordito1869, Wikimedia Commons (CC BY-SA 4.0)"
   },
   {
     "id": "churreria-casa-aranda",
@@ -224,7 +224,7 @@
     "id": "la-cepa",
     "name": "La Cepa",
     "category": "bar",
-    "lat": 36.7196000,
+    "lat": 36.7196,
     "lng": -4.4203651,
     "address": "Calle Strachan, 29015 Málaga",
     "shortDescription": "Traditional tapas tavern on Calle Strachan, simple and reliably good for a casual bite.",
@@ -268,8 +268,8 @@
     "rating": null,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Nook+Restaurante+Calle+Strachan+10+Malaga",
     "tripAdvisorUrl": null,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Ronda_Tapas.jpg",
-    "imageCredit": "Ben Coombs, Wikimedia Commons (CC BY-SA 2.0)"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Patatas_Bravas.JPG",
+    "imageCredit": "Juan Emilio Prades Bel, Wikimedia Commons (CC BY-SA 4.0)"
   },
   {
     "id": "cafe-museo-aduana",
@@ -285,14 +285,14 @@
     "rating": null,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Museo+de+Malaga+Palacio+de+la+Aduana+cafe",
     "tripAdvisorUrl": null,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/M%C3%A1laga_-_Museo_de_M%C3%A1laga_%28Palacio_de_la_Aduana%29_03.jpg",
-    "imageCredit": "Zarateman, Wikimedia Commons (CC0)"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Caf%C3%A9_con_leche_and_tostadas.jpg",
+    "imageCredit": "Jorge Gonzalez, Wikimedia Commons (CC BY-SA 2.0)"
   },
   {
     "id": "malaga-palacio-rooftop",
     "name": "Málaga Palacio Hotel Rooftop Terrace",
     "category": "bar",
-    "lat": 36.7191730,
+    "lat": 36.719173,
     "lng": -4.4195423,
     "address": "Cortina del Muelle, 1, 29015 Málaga",
     "shortDescription": "The city's highest rooftop terrace, with 360° views over the cathedral, port and sea.",
@@ -360,7 +360,7 @@
     "id": "refectorium",
     "name": "Refectorium",
     "category": "restaurant",
-    "lat": 36.7196890,
+    "lat": 36.719689,
     "lng": -4.4100416,
     "address": "Calle Cervantes, 8, 29016 Málaga",
     "shortDescription": "Classic Malagueño restaurant since 1973, right across from the La Malagueta bullring.",
@@ -370,8 +370,8 @@
     "rating": null,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=El+Refectorium+Calle+Cervantes+8+Malaga",
     "tripAdvisorUrl": null,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Ronda_Tapas.jpg",
-    "imageCredit": "Ben Coombs, Wikimedia Commons (CC BY-SA 2.0)"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Boquerones_Fritos.jpg",
+    "imageCredit": "Tamorlan, Wikimedia Commons (CC BY 3.0)"
   },
   {
     "id": "los-espigones",
@@ -395,7 +395,7 @@
     "name": "Pedregalejo",
     "category": "walk",
     "lat": 36.7237398,
-    "lng": -4.3734030,
+    "lng": -4.373403,
     "address": "Pedregalejo, 29017 Málaga",
     "shortDescription": "Former fishing village turned beach-promenade neighborhood, full of chiringuitos and espeto stands.",
     "fullDescription": "Pedregalejo is a former fishing village east of the center, its narrow streets of small colorful houses opening onto a long seafront promenade lined with chiringuitos (beach bar-restaurants). It's the best place in the city to try espeto — sardines grilled over wood fires right on the sand — and makes for a relaxed half-day escape from the historic center.",
@@ -411,7 +411,7 @@
     "id": "paseo-reding-sancha",
     "name": "Paseo de Reding & Paseo de Sancha",
     "category": "walk",
-    "lat": 36.7225990,
+    "lat": 36.722599,
     "lng": -4.3991377,
     "address": "Paseo de Sancha, 29016 Málaga",
     "shortDescription": "Elegant tree-lined avenue of 19th-century mansions in the residential La Caleta district.",
@@ -428,7 +428,7 @@
     "id": "plaza-de-toros-la-malagueta",
     "name": "Plaza de Toros de La Malagueta",
     "category": "monument",
-    "lat": 36.7203500,
+    "lat": 36.72035,
     "lng": -4.4107849,
     "address": "Paseo de Reding, 8, 29016 Málaga",
     "shortDescription": "Neo-Mudéjar bullring from 1874, a striking 16-sided landmark in the Malagueta district.",
@@ -462,8 +462,8 @@
     "id": "alcazaba-de-malaga",
     "name": "Alcazaba de Málaga",
     "category": "monument",
-    "lat": 36.7210080,
-    "lng": -4.4159180,
+    "lat": 36.721008,
+    "lng": -4.415918,
     "address": "Calle Alcazabilla, 2, 29012 Málaga",
     "shortDescription": "Beautifully preserved 11th-century Moorish palace-fortress overlooking the old town.",
     "fullDescription": "The Alcazaba is an 11th-century Moorish fortress and palace complex, one of the best-preserved of its kind in Spain, with terraced gardens, horseshoe arches, fountains and defensive walls climbing the hillside above a Roman theatre. It connects via a fortified passage to the Gibralfaro castle above, and a combined ticket covers both — plan on an hour or two to explore properly.",
@@ -497,7 +497,7 @@
     "name": "Jardín Botánico-Histórico La Concepción",
     "category": "park",
     "lat": 36.7624626,
-    "lng": -4.4265520,
+    "lng": -4.426552,
     "address": "Camino del Jardín Botánico, 3, 29014 Málaga",
     "shortDescription": "Lush 19th-century subtropical botanical garden on the northern edge of the city.",
     "fullDescription": "La Concepción is a sprawling English-landscape-style botanical garden dating back more than 150 years, one of the few gardens in Europe with a genuinely subtropical plant collection — palms, ficus, bamboo groves and a wealth of exotic species set among fountains, sculptures and shaded paths. It sits on the northern outskirts of Málaga, so it's best reached by car or taxi rather than on foot.",

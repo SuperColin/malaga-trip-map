@@ -7,7 +7,7 @@
 
   const el = (sel) => document.querySelector(sel);
   const FAV_KEY = "malagaMapFavorites";
-  const HEART_SVG = '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 21s-7.28-4.35-9.9-9.02C.36 8.77 1.7 5 5.4 5c2.02 0 3.42 1.06 4.4 2.6C10.78 6.06 12.18 5 14.2 5c3.7 0 5.04 3.77 3.3 6.98C19.28 16.65 12 21 12 21z" fill="currentColor" fill-opacity="0" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  const HEART_SVG = '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" fill="currentColor" fill-opacity="0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   function loadFavorites() {
     try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")); }

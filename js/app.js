@@ -6,7 +6,15 @@
   const MAP_ZOOM = 15;
 
   const el = (sel) => document.querySelector(sel);
-  const state = { pois: [], activeCategory: "all", activePoi: null, listOpen: false };
+  const FAV_KEY = "malagaMapFavorites";
+  const HEART_SVG = '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 21s-7.28-4.35-9.9-9.02C.36 8.77 1.7 5 5.4 5c2.02 0 3.42 1.06 4.4 2.6C10.78 6.06 12.18 5 14.2 5c3.7 0 5.04 3.77 3.3 6.98C19.28 16.65 12 21 12 21z" fill="currentColor" fill-opacity="0" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+
+  function loadFavorites() {
+    try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")); }
+    catch (e) { return new Set(); }
+  }
+
+  const state = { pois: [], activeCategory: "all", activePoi: null, listOpen: false, favorites: loadFavorites() };
 
   const veil = el("#veil");
   const filtersEl = el("#filters");
@@ -86,16 +94,22 @@
     state.pois.forEach((p) => (counts[p.category] = (counts[p.category] || 0) + 1));
     const cats = Object.keys(CATEGORY_META).filter((c) => counts[c]);
 
-    const chips = [{ key: "all", label: "All", color: "#241d16", count: state.pois.length }].concat(
+    const chips = [
+      { key: "all", label: "All", color: "#241d16", count: state.pois.length },
+      { key: "saved", label: "Saved", saved: true, count: state.favorites.size },
+    ].concat(
       cats.map((c) => ({ key: c, label: CATEGORY_META[c].label, color: CATEGORY_META[c].color, count: counts[c] }))
     );
 
     filtersEl.innerHTML = "";
     chips.forEach((c) => {
       const btn = document.createElement("button");
-      btn.className = "chip" + (c.key === "all" ? " active" : "");
+      btn.className = "chip" + (c.saved ? " chip-saved" : "") + (c.key === state.activeCategory ? " active" : "");
       btn.dataset.cat = c.key;
-      btn.innerHTML = `<span class="dot" style="background:${c.color}"></span>${c.label} <span class="count">${c.count}</span>`;
+      const marker = c.saved
+        ? `<span class="chip-heart">${HEART_SVG}</span>`
+        : `<span class="dot" style="background:${c.color}"></span>`;
+      btn.innerHTML = `${marker}${c.label} <span class="count">${c.count}</span>`;
       btn.addEventListener("click", () => setActiveCategory(c.key));
       filtersEl.appendChild(btn);
     });
@@ -109,7 +123,29 @@
   }
 
   function visiblePois() {
-    return state.activeCategory === "all" ? state.pois : state.pois.filter((p) => p.category === state.activeCategory);
+    if (state.activeCategory === "all") return state.pois;
+    if (state.activeCategory === "saved") return state.pois.filter((p) => state.favorites.has(p.id));
+    return state.pois.filter((p) => p.category === state.activeCategory);
+  }
+
+  function isFavorite(id) {
+    return state.favorites.has(id);
+  }
+
+  function toggleFavorite(id) {
+    if (state.favorites.has(id)) state.favorites.delete(id);
+    else state.favorites.add(id);
+    try { localStorage.setItem(FAV_KEY, JSON.stringify([...state.favorites])); } catch (e) {}
+
+    buildFilters();
+    renderMarkers();
+    renderListView();
+
+    const sbBtn = sidebarContent.querySelector(".sb-fav-btn");
+    if (sbBtn && sbBtn.dataset.id === id) {
+      sbBtn.classList.toggle("active", isFavorite(id));
+      sbBtn.setAttribute("aria-pressed", String(isFavorite(id)));
+    }
   }
 
   function renderMarkers() {
@@ -117,9 +153,10 @@
     markerIndex = {};
     visiblePois().forEach((poi, i) => {
       const meta = CATEGORY_META[poi.category] || CATEGORY_META.restaurant;
+      const favBadge = isFavorite(poi.id) ? '<div class="pin-fav-badge">' + HEART_SVG + "</div>" : "";
       const icon = L.divIcon({
         className: "",
-        html: `<div class="poi-marker" data-id="${poi.id}"><div class="poi-pin animate-in" style="background:${meta.color}; animation-delay:${Math.min(i * 22, 400)}ms">${meta.icon}</div></div>`,
+        html: `<div class="poi-marker" data-id="${poi.id}"><div class="poi-pin animate-in" style="background:${meta.color}; animation-delay:${Math.min(i * 22, 400)}ms">${meta.icon}${favBadge}</div></div>`,
         iconSize: [34, 34],
         iconAnchor: [17, 30]
       });
@@ -142,6 +179,9 @@
     popover.querySelector(".popover-desc").textContent = poi.shortDescription || "";
     popover.querySelector(".popover-rating").textContent = poi.rating ? poi.rating.toFixed(1) : "";
     popover.querySelector(".popover-price").textContent = poi.priceLevel || "";
+    const favEl = popover.querySelector(".popover-fav");
+    favEl.innerHTML = HEART_SVG;
+    favEl.classList.toggle("visible", isFavorite(poi.id));
     popover.hidden = false;
     requestAnimationFrame(() => popover.classList.add("visible"));
     positionPopover(e);
@@ -193,6 +233,7 @@
         <img src="${poi.imageUrl || ""}" alt="${escapeHtml(poi.name)}">
         <div class="sb-hero-fade"></div>
         <div class="sb-hero-cat"><span class="swatch" style="background:${meta.color}"></span>${meta.label}</div>
+        <button class="sb-fav-btn${isFavorite(poi.id) ? " active" : ""}" data-id="${poi.id}" aria-pressed="${isFavorite(poi.id)}" aria-label="Save to favorites">${HEART_SVG}</button>
       </div>
       <div class="sb-body">
         <h2 class="sb-title">${escapeHtml(poi.name)}</h2>
@@ -203,6 +244,7 @@
         <div class="sb-actions">${linksHtml}</div>
       </div>
     `;
+    sidebarContent.querySelector(".sb-fav-btn").addEventListener("click", () => toggleFavorite(poi.id));
     if (poi.imageCredit) {
       const credit = document.createElement("div");
       credit.style.cssText = "font-size:10.5px;color:var(--ink-faint);margin-top:14px;";
@@ -234,8 +276,10 @@
   function renderListView() {
     listGrid.innerHTML = "";
     visiblePois().forEach((poi) => {
-      const card = document.createElement("button");
+      const card = document.createElement("div");
       card.className = "list-card";
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
       const meta = CATEGORY_META[poi.category] || CATEGORY_META.restaurant;
       card.innerHTML = `
         <img src="${poi.imageUrl || ""}" alt="">
@@ -243,9 +287,15 @@
           <div class="list-card-cat" style="color:${meta.color}">${meta.label}</div>
           <div class="list-card-name">${escapeHtml(poi.name)}</div>
           <div class="list-card-desc">${escapeHtml(poi.shortDescription || "")}</div>
-        </div>`;
-      card.addEventListener("click", () => {
-        openSidebar(poi);
+        </div>
+        <button class="list-fav-btn${isFavorite(poi.id) ? " active" : ""}" data-id="${poi.id}" aria-pressed="${isFavorite(poi.id)}" aria-label="Save to favorites">${HEART_SVG}</button>`;
+      card.addEventListener("click", () => openSidebar(poi));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openSidebar(poi); }
+      });
+      card.querySelector(".list-fav-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleFavorite(poi.id);
       });
       listGrid.appendChild(card);
     });

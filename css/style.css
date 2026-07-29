@@ -198,7 +198,7 @@ a{ color: inherit; }
   transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s ease;
   cursor:pointer;
 }
-.poi-pin svg{ transform: rotate(-45deg); width:16px; height:16px; }
+.poi-pin > svg{ transform: rotate(-45deg); width:16px; height:16px; }
 .poi-marker:hover .poi-pin, .poi-marker.active .poi-pin{
   transform: rotate(45deg) scale(1.18);
   box-shadow: var(--shadow-3);

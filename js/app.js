@@ -7,6 +7,7 @@
 
   const el = (sel) => document.querySelector(sel);
   const FAV_KEY = "malagaMapFavorites";
+  const ALL_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>';
   const HEART_SVG = '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" fill="currentColor" fill-opacity="0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   function loadFavorites() {
@@ -53,9 +54,9 @@
     map = L.map("map", { zoomControl: false, attributionControl: true, tap: true })
       .setView(MAP_CENTER, MAP_ZOOM);
 
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png?key=" + window.CARTO_KEY, {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      maxZoom: 19,
+      maxZoom: 20,
       subdomains: "abcd"
     }).addTo(map);
 
@@ -66,12 +67,12 @@
     // Home marker for the apartment
     const homeIcon = L.divIcon({
       className: "",
-      html: `<div class="poi-marker home"><div class="poi-pin animate-in" style="background:#241d16"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></div></div>`,
-      iconSize: [34, 34],
-      iconAnchor: [17, 30]
+      html: `<div class="poi-marker home"><div class="poi-pin animate-in" style="background:#222"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div></div>`,
+      iconSize: [38, 38],
+      iconAnchor: [19, 19]
     });
     const homeMarker = L.marker([APARTMENT.lat, APARTMENT.lng], { icon: homeIcon, zIndexOffset: 1000 }).addTo(map);
-    homeMarker.bindTooltip(`<strong>${APARTMENT.name}</strong>`, { direction: "top", offset: [0, -28], className: "home-tip" });
+    homeMarker.bindTooltip(`<strong>${APARTMENT.name}</strong>`, { direction: "top", offset: [0, -22], className: "home-tip" });
   }
 
   function bindGlobalUI() {
@@ -83,6 +84,7 @@
       state.listOpen = !state.listOpen;
       listToggle.setAttribute("aria-pressed", String(state.listOpen));
       listToggle.setAttribute("aria-label", state.listOpen ? "Show map view" : "Show list view");
+      listToggle.querySelector(".vt-label").textContent = state.listOpen ? "Map" : "List";
       listView.classList.toggle("open", state.listOpen);
       mapEl.classList.toggle("hidden-under-list", state.listOpen);
       if (state.listOpen) hidePopover();
@@ -95,10 +97,10 @@
     const cats = Object.keys(CATEGORY_META).filter((c) => counts[c]);
 
     const chips = [
-      { key: "all", label: "All", color: "#241d16", count: state.pois.length },
-      { key: "saved", label: "Saved", saved: true, count: state.favorites.size },
+      { key: "all", label: "All", icon: ALL_SVG, count: state.pois.length },
+      { key: "saved", label: "Saved", saved: true, icon: HEART_SVG, count: state.favorites.size },
     ].concat(
-      cats.map((c) => ({ key: c, label: CATEGORY_META[c].label, color: CATEGORY_META[c].color, count: counts[c] }))
+      cats.map((c) => ({ key: c, label: CATEGORY_META[c].label, icon: CATEGORY_META[c].icon, count: counts[c] }))
     );
 
     filtersEl.innerHTML = "";
@@ -106,10 +108,8 @@
       const btn = document.createElement("button");
       btn.className = "chip" + (c.saved ? " chip-saved" : "") + (c.key === state.activeCategory ? " active" : "");
       btn.dataset.cat = c.key;
-      const marker = c.saved
-        ? `<span class="chip-heart">${HEART_SVG}</span>`
-        : `<span class="dot" style="background:${c.color}"></span>`;
-      btn.innerHTML = `${marker}${c.label} <span class="count">${c.count}</span>`;
+      btn.setAttribute("aria-pressed", String(c.key === state.activeCategory));
+      btn.innerHTML = `${c.icon}<span>${c.label}<span class="count">${c.count}</span></span>`;
       btn.addEventListener("click", () => setActiveCategory(c.key));
       filtersEl.appendChild(btn);
     });
@@ -117,7 +117,10 @@
 
   function setActiveCategory(cat) {
     state.activeCategory = cat;
-    filtersEl.querySelectorAll(".chip").forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
+    filtersEl.querySelectorAll(".chip").forEach((b) => {
+      b.classList.toggle("active", b.dataset.cat === cat);
+      b.setAttribute("aria-pressed", String(b.dataset.cat === cat));
+    });
     renderMarkers();
     renderListView();
   }
@@ -157,8 +160,8 @@
       const icon = L.divIcon({
         className: "",
         html: `<div class="poi-marker" data-id="${poi.id}"><div class="poi-pin animate-in" style="background:${meta.color}; animation-delay:${Math.min(i * 22, 400)}ms">${meta.icon}${favBadge}</div></div>`,
-        iconSize: [34, 34],
-        iconAnchor: [17, 30]
+        iconSize: [38, 38],
+        iconAnchor: [19, 19]
       });
       const marker = L.marker([poi.lat, poi.lng], { icon, riseOnHover: true }).addTo(markersLayer);
       markerIndex[poi.id] = marker;
@@ -220,7 +223,7 @@
     ].join("");
 
     const tipHtml = poi.hostTip
-      ? `<div class="sb-tip"><span class="sb-tip-label">Antonio says</span>${escapeHtml(poi.hostTip)}</div>`
+      ? `<div class="sb-tip"><span class="sb-tip-label">The tip</span><p class="sb-tip-text">${escapeHtml(poi.hostTip)}</p></div>`
       : "";
 
     const linksHtml = [
@@ -231,26 +234,21 @@
     sidebarContent.innerHTML = `
       <div class="sb-hero">
         <img src="${poi.imageUrl || ""}" alt="${escapeHtml(poi.name)}">
-        <div class="sb-hero-fade"></div>
-        <div class="sb-hero-cat"><span class="swatch" style="background:${meta.color}"></span>${meta.label}</div>
         <button class="sb-fav-btn${isFavorite(poi.id) ? " active" : ""}" data-id="${poi.id}" aria-pressed="${isFavorite(poi.id)}" aria-label="Save to favorites">${HEART_SVG}</button>
       </div>
       <div class="sb-body">
+        <p class="sb-cat"><span class="swatch" style="background:${meta.color}"></span>${meta.label}</p>
         <h2 class="sb-title">${escapeHtml(poi.name)}</h2>
         <p class="sb-address">${escapeHtml(poi.address || "")}</p>
         <div class="sb-stats">${statsHtml}</div>
-        <p class="sb-desc">${escapeHtml(poi.fullDescription || poi.shortDescription || "")}</p>
         ${tipHtml}
-        <div class="sb-actions">${linksHtml}</div>
+        <p class="sb-desc">${escapeHtml(poi.fullDescription || poi.shortDescription || "")}</p>
+        ${poi.imageCredit ? `<p class="sb-credit">Photo: ${escapeHtml(poi.imageCredit)}</p>` : ""}
       </div>
+      <div class="sb-footer">${linksHtml}</div>
     `;
     sidebarContent.querySelector(".sb-fav-btn").addEventListener("click", () => toggleFavorite(poi.id));
-    if (poi.imageCredit) {
-      const credit = document.createElement("div");
-      credit.style.cssText = "font-size:10.5px;color:var(--ink-faint);margin-top:14px;";
-      credit.textContent = "Photo: " + poi.imageCredit;
-      sidebarContent.querySelector(".sb-body").appendChild(credit);
-    }
+    sidebar.scrollTop = 0;
 
     sidebar.classList.add("open");
     sidebar.setAttribute("aria-hidden", "false");
@@ -282,13 +280,18 @@
       card.setAttribute("role", "button");
       const meta = CATEGORY_META[poi.category] || CATEGORY_META.restaurant;
       card.innerHTML = `
-        <img src="${poi.imageUrl || ""}" alt="">
-        <div class="list-card-body">
-          <div class="list-card-cat" style="color:${meta.color}">${meta.label}</div>
-          <div class="list-card-name">${escapeHtml(poi.name)}</div>
-          <div class="list-card-desc">${escapeHtml(poi.shortDescription || "")}</div>
+        <div class="list-media">
+          <img src="${poi.imageUrl || ""}" alt="" loading="lazy">
+          <button class="list-fav-btn${isFavorite(poi.id) ? " active" : ""}" data-id="${poi.id}" aria-pressed="${isFavorite(poi.id)}" aria-label="Save ${escapeHtml(poi.name)} to favorites">${HEART_SVG}</button>
         </div>
-        <button class="list-fav-btn${isFavorite(poi.id) ? " active" : ""}" data-id="${poi.id}" aria-pressed="${isFavorite(poi.id)}" aria-label="Save to favorites">${HEART_SVG}</button>`;
+        <div>
+          <div class="list-head">
+            <div class="list-card-name">${escapeHtml(poi.name)}</div>
+            ${poi.rating ? `<div class="list-rating">${poi.rating.toFixed(1)}</div>` : ""}
+          </div>
+          <div class="list-card-cat">${meta.label}${poi.priceLevel ? " · " + poi.priceLevel : ""}</div>
+          <div class="list-card-desc">${escapeHtml(poi.shortDescription || "")}</div>
+        </div>`;
       card.addEventListener("click", () => openSidebar(poi));
       card.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openSidebar(poi); }
